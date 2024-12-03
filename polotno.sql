@@ -28,12 +28,12 @@ CREATE TABLE IF NOT EXISTS genre (
 CREATE TABLE IF NOT EXISTS artist (
     artist_id INT AUTO_INCREMENT PRIMARY KEY,
     artist_name VARCHAR(100) NOT NULL,
-    date_of_birth INT NOT NULL,
+    date_of_birth INT,
     date_of_death INT,
-    place_of_birth TEXT NOT NULL,
+    place_of_birth TEXT,
     movement_id INT,
     genre_id INT,
-    bio TEXT NOT NULL,
+    bio TEXT,
     FOREIGN KEY (movement_id) REFERENCES art_movement(movement_id) ON DELETE SET NULL,
     FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE SET NULL
 );
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS painting (
     painting_id INT AUTO_INCREMENT PRIMARY KEY,
     painting_name VARCHAR(100) NOT NULL,
     artist_id INT NOT NULL,
-    style_id INT,
-    genre_id INT,
+    style_id INT NOT NULL,
+    genre_id INT NOT NULL,
     year_created INT,
     painting_description TEXT,
     FOREIGN KEY (artist_id) REFERENCES artist(artist_id) ON DELETE RESTRICT,
