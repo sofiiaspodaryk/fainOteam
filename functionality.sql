@@ -36,31 +36,7 @@ DELIMITER ;
 
 call get_painting_details_by_id(1);
 
-
-DELIMITER $$
-
-CREATE FUNCTION get_user_favorites(user_id INT)
-RETURNS TABLE
-RETURN
-    SELECT 
-        p.painting_id, 
-        p.painting_name, 
-        a.artist_name, 
-        p.year_created, 
-        p.painting_description
-    FROM 
-        favorite f
-    JOIN 
-        painting p ON f.painting_id = p.painting_id
-    JOIN 
-        artist a ON p.artist_id = a.artist_id
-    WHERE 
-        f.user_id = user_id;
-
-$$
-DELIMITER ;
-
-SELECT * FROM GetUserFavorites(1); 
+ 
 
 DELIMITER $$
 
@@ -88,3 +64,27 @@ DELIMITER ;
 call get_artist_details_by_id(1);
 
 
+DELIMITER $$
+
+CREATE PROCEDURE get_user_favorites_procedure(IN user_id INT)
+BEGIN
+    SELECT 
+        p.painting_id, 
+        p.painting_name, 
+        CONCAT(a.first_name, ' ', a.last_name) AS artist_name, 
+        p.year_created, 
+        p.painting_description
+    FROM 
+        favorite f
+    JOIN 
+        painting p ON f.painting_id = p.painting_id
+    JOIN 
+        artist a ON p.artist_id = a.artist_id
+    WHERE 
+        f.user_id = user_id;
+END$$
+
+DELIMITER ;
+
+
+CALL get_user_favorites_procedure(1); 
