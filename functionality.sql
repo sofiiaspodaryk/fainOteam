@@ -88,3 +88,68 @@ DELIMITER ;
 
 
 CALL get_user_favorites_procedure(1); 
+
+DELIMITER $$
+
+CREATE FUNCTION get_painting_count(artistId INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE painting_count INT;
+    SELECT COUNT(*) INTO painting_count
+    FROM painting
+    WHERE artist_id = artistId;
+    RETURN painting_count;
+END$$
+
+DELIMITER ;
+
+SELECT get_painting_count(1) AS painting_count;
+
+DELIMITER $$
+
+CREATE FUNCTION get_average_test_score(userId INT)
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+    DECLARE average_score FLOAT;
+    SELECT AVG(score) INTO average_score
+    FROM user_test_result
+    WHERE user_id = userId;
+    RETURN IFNULL(average_score, 0);
+END$$
+
+DELIMITER ;
+
+SELECT get_average_test_score(2) AS average_score;
+
+DELIMITER $$
+
+CREATE PROCEDURE transfer_user_test_results(
+    IN oldUserId INT,
+    IN newUserId INT
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    IF (SELECT COUNT(*) FROM users WHERE user_id = newUserId) = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Target user does not exist.';
+    END IF;
+
+    UPDATE user_test_result
+    SET user_id = newUserId
+    WHERE user_id = oldUserId;
+
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+CALL transfer_user_test_results(1, 3);
+
