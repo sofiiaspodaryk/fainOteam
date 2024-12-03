@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS artist (
     movement_id INT,
     genre_id INT,
     bio TEXT NOT NULL,
-    FOREIGN KEY (movement_id) REFERENCES art_movement(movement_id),
-    FOREIGN KEY (genre_id) REFERENCES genre(genre_id)
+    FOREIGN KEY (movement_id) REFERENCES art_movement(movement_id) ON DELETE SET NULL,
+    FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE SET NULL
 );
 
 
@@ -47,9 +47,9 @@ CREATE TABLE IF NOT EXISTS painting (
     genre_id INT,
     year_created INT,
     painting_description TEXT,
-    FOREIGN KEY (artist_id) REFERENCES artist(artist_id),
-    FOREIGN KEY (style_id) REFERENCES art_movement(movement_id),
-    FOREIGN KEY (genre_id) REFERENCES genre(genre_id)
+    FOREIGN KEY (artist_id) REFERENCES artist(artist_id) ON DELETE RESTRICT,
+    FOREIGN KEY (style_id) REFERENCES art_movement(movement_id) ON DELETE SET NULL,
+    FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE SET NULL
 );
 
 
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS favorite (
     painting_id INT NOT NULL,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (user_id, painting_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (painting_id) REFERENCES painting(painting_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (painting_id) REFERENCES painting(painting_id) ON DELETE CASCADE
 );
 
 
@@ -67,8 +67,7 @@ CREATE TABLE IF NOT EXISTS test (
     test_id INT AUTO_INCREMENT PRIMARY KEY,
     test_name VARCHAR(100) NOT NULL,
     difficulty INT DEFAULT 1,
-    artist_id INT,
-    FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
+    FOREIGN KEY (artist_id) REFERENCES artist(artist_id) ON DELETE CASCADE
 );
 
 
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS question (
     question_id INT AUTO_INCREMENT PRIMARY KEY,
     test_id INT NOT NULL,
     question_text TEXT NOT NULL,
-    FOREIGN KEY (test_id) REFERENCES test(test_id)
+    FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE
 );
 
 
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS answer (
     question_id INT NOT NULL,
     answer_text VARCHAR(255) NOT NULL,
     is_correct TINYINT DEFAULT 0,
-    FOREIGN KEY (question_id) REFERENCES question(question_id)
+    FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE
 );
 
 
@@ -95,7 +94,7 @@ CREATE TABLE IF NOT EXISTS user_test_result (
     test_id INT NOT NULL,
     score INT NOT NULL,
     completion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (test_id) REFERENCES test(test_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE
 );
 
