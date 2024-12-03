@@ -62,6 +62,29 @@ DELIMITER ;
 
 SELECT * FROM GetUserFavorites(1); 
 
+DELIMITER $$
 
+CREATE PROCEDURE get_artist_details_by_id(IN p_artist_id INT)
+BEGIN
+    SELECT 
+        a.first_name AS ArtistFirstName,
+        a.last_name AS ArtistLastName,
+        a.date_of_birth AS DateOfBirth,
+        a.date_of_death AS DateOfDeath,
+        a.place_of_birth AS PlaceOfBirth,
+        a.bio AS Biography,
+        am.movement_name AS ArtMovement,
+        g.genre_name AS MainGenre
+    FROM 
+        artist a
+    LEFT JOIN art_movement am ON a.movement_id = am.movement_id
+    LEFT JOIN genre g ON a.genre_id = g.genre_id
+    WHERE 
+        a.artist_id = p_artist_id;
+END $$
+
+DELIMITER ;
+
+call get_artist_details_by_id(1);
 
 
