@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS test (
     test_id INT AUTO_INCREMENT PRIMARY KEY,
     test_name VARCHAR(100) NOT NULL,
     difficulty INT DEFAULT 1,
+    artist_id INT,
     FOREIGN KEY (artist_id) REFERENCES artist(artist_id) ON DELETE CASCADE
 );
 
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS answer (
     answer_id INT AUTO_INCREMENT PRIMARY KEY,
     question_id INT NOT NULL,
     answer_text VARCHAR(255) NOT NULL,
-    is_correct TINYINT DEFAULT 0,
+    is_correct BOOLEAN DEFAULT 0,
     FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE
 );
 
