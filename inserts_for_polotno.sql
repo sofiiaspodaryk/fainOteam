@@ -68,6 +68,7 @@ INSERT INTO painting (painting_name, artist_id, style_id, genre_id, year_created
 INSERT INTO favorite (user_id, painting_id) VALUES
 (1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3, 6), (4, 7), (4, 8), (5, 9), (5, 10);
 
+
 INSERT INTO test (test_name, difficulty, artist_id) VALUES
 ('Тест про Шевченка', 1, 1),
 ('Тест про Малевича', 2, 3),
