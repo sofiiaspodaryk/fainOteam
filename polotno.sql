@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS genre (
 
 CREATE TABLE IF NOT EXISTS artist (
     artist_id INT AUTO_INCREMENT PRIMARY KEY,
-    artist_name VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
     date_of_birth INT,
     date_of_death INT,
     place_of_birth TEXT,
@@ -43,8 +44,8 @@ CREATE TABLE IF NOT EXISTS painting (
     painting_id INT AUTO_INCREMENT PRIMARY KEY,
     painting_name VARCHAR(100) NOT NULL,
     artist_id INT NOT NULL,
-    style_id INT NOT NULL,
-    genre_id INT NOT NULL,
+    style_id INT,
+    genre_id INT,
     year_created INT,
     painting_description TEXT,
     FOREIGN KEY (artist_id) REFERENCES artist(artist_id) ON DELETE RESTRICT,
@@ -99,3 +100,4 @@ CREATE TABLE IF NOT EXISTS user_test_result (
     FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE
 );
 
+Drop database polotno;
