@@ -16,13 +16,13 @@ DELIMITER $$
 create procedure get_painting_details_by_id(IN p_painting_id INT)
 BEGIN
     SELECT 
-        p.painting_name AS PaintingName,
-        a.first_name AS ArtistFirstName,
-        a.last_name AS ArtistLastName,
-        am.movement_name AS Style,
-        g.genre_name AS Genre,
-        p.year_created AS YearCreated,
-        p.painting_description AS Description
+        p.painting_name AS painting_name,
+        a.first_name AS artist_first_name,
+        a.last_name AS artist_last_name,
+        am.movement_name AS style,
+        g.genre_name AS genre,
+        p.year_created AS year_created,
+        p.painting_description AS description
     FROM 
         painting p
     LEFT JOIN artist a ON p.artist_id = a.artist_id
@@ -43,14 +43,14 @@ DELIMITER $$
 CREATE PROCEDURE get_artist_details_by_id(IN p_artist_id INT)
 BEGIN
     SELECT 
-        a.first_name AS ArtistFirstName,
-        a.last_name AS ArtistLastName,
-        a.date_of_birth AS DateOfBirth,
-        a.date_of_death AS DateOfDeath,
-        a.place_of_birth AS PlaceOfBirth,
-        a.bio AS Biography,
-        am.movement_name AS ArtMovement,
-        g.genre_name AS MainGenre
+        a.first_name AS artist_first_name,
+        a.last_name AS artist_last_name,
+        a.date_of_birth AS date_of_birth,
+        a.date_of_death AS date_of_death,
+        a.place_of_birth AS place_of_birth,
+        a.bio AS biography,
+        am.movement_name AS art_movement,
+        g.genre_name AS main_genre
     FROM 
         artist a
     LEFT JOIN art_movement am ON a.movement_id = am.movement_id
@@ -124,32 +124,4 @@ DELIMITER ;
 SELECT get_average_test_score(2) AS average_score;
 
 DELIMITER $$
-
-CREATE PROCEDURE transfer_user_test_results(
-    IN oldUserId INT,
-    IN newUserId INT
-)
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
-        ROLLBACK;
-    END;
-
-    START TRANSACTION;
-
-    IF (SELECT COUNT(*) FROM users WHERE user_id = newUserId) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Target user does not exist.';
-    END IF;
-
-    UPDATE user_test_result
-    SET user_id = newUserId
-    WHERE user_id = oldUserId;
-
-    COMMIT;
-END$$
-
-DELIMITER ;
-
-CALL transfer_user_test_results(1, 3);
 
