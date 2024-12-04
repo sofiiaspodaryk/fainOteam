@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT email_check CHECK (email LIKE '%_@_%._%')
 );
 
 
@@ -29,8 +30,8 @@ CREATE TABLE IF NOT EXISTS artist (
     artist_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    date_of_birth INT,
-    date_of_death INT,
+    date_of_birth DATE,
+    date_of_death DATE,
     place_of_birth TEXT,
     movement_id INT,
     genre_id INT,
@@ -99,5 +100,3 @@ CREATE TABLE IF NOT EXISTS user_test_result (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (test_id) REFERENCES test(test_id) ON DELETE CASCADE
 );
-
-Drop database polotno;

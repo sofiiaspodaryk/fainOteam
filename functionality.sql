@@ -10,6 +10,21 @@ create index idx_artist_last_name ON artist(last_name);
 create index idx_genre_name ON genre(genre_name);
 create index idx_movement_name ON art_movement(movement_name);
 
+DELIMITER //
+
+CREATE TRIGGER validate_year_created
+BEFORE INSERT ON painting
+FOR EACH ROW
+BEGIN
+    IF NEW.year_created <= 1000 OR NEW.year_created > YEAR(CURDATE()) THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Invalid year of painting creation: must be between 1001 and the current year.';
+    END IF;
+END;
+//
+
+DELIMITER ;
+
 
 DELIMITER $$
 
