@@ -1,0 +1,35 @@
+Get http://localhost:5238/fainoteam/getAllPainting/
+
+GET http://localhost:5238/fainoteam/getPaintingById/1/
+
+Get http://localhost:5238/
+
+GET http://localhost:5238/fainoteam/getUserById/1/
+
+POST http://localhost:5238/fainoteam/addUser/
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password_hash": "hashedpassword123"
+}
+
+
+DELETE http://localhost:5238/fainoteam/deleteUserById/
+Content-Type: application/json
+
+{
+  "user_id": 1
+}
+
+
+PUT http://localhost:5238/fainoteam/updateUserById/
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "username": "john_doe_updated",
+  "email": "john_updated@example.com",
+  "password_hash": "newhashedpassword123"
+}
