@@ -1,12 +1,16 @@
-import React from "react";
+import React from 'react';
 
-function ArtistsPage() {
+const ArtistsPage = () => {
   return (
     <div>
-      <h1>Художники</h1>
-      <p>Список художників...</p>
+      <h1>Список художників</h1>
+      <ul>
+        <li>Алла Горська</li>
+        <li>Сергій Параджанорв</li>
+        <li>Марія Примаченко</li>
+      </ul>
     </div>
   );
-}
+};
 
 export default ArtistsPage;
