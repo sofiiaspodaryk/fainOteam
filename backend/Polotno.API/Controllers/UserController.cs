@@ -15,7 +15,7 @@ public class UserController : ControllerBase
         _context = context;
     }
 
-    // GET: /fainoteam/getUserById/
+    // GET: /fainoteam/getUserById/{user_id}
     [HttpGet("getUserById/{user_id}")]
     public async Task<IActionResult> GetUserById(int user_id)
     {
@@ -62,9 +62,9 @@ public class UserController : ControllerBase
         });
     }
 
-    // DELETE: /fainoteam/deleteUserById/
-    [HttpDelete("deleteUserById")]
-    public async Task<IActionResult> DeleteUserById([FromBody] int user_id)
+    // DELETE: /fainoteam/deleteUserById/{user_id}
+    [HttpDelete("deleteUserById/{user_id}")]
+    public async Task<IActionResult> DeleteUserById(int user_id)
     {
         var user = await _context.Users.FindAsync(user_id);
         if (user == null)
