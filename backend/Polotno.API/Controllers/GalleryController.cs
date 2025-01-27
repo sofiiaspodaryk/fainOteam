@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Polotno.API.Models;
-using Microsoft.EntityFrameworkCore;
+using Polotno.API.Repositories;
 
 namespace Polotno.API.Controllers;
 
@@ -8,52 +7,31 @@ namespace Polotno.API.Controllers;
 [Route("fainoteam")]
 public class GalleryController : ControllerBase
 {
-    private readonly PolotnoContext _context;
+    private readonly IGalleryRepository galleryRepository;
 
-    public GalleryController(PolotnoContext context)
+    public GalleryController( IGalleryRepository galleryRepository)
     {
-        _context = context;
+        this.galleryRepository = galleryRepository;
     }
 
     // GET: /fainoteam/getPaintingById/{id}
     [HttpGet("getPaintingById/{id}")]
-    public async Task<IActionResult> GetPaintingById(int id)
-    {
-        var painting = await _context.Paintings
-            .Where(p => p.PaintingId == id)
-            .Select(p => new
-            {
-                p.PaintingId,
-                PaintingName = p.PaintingName,
-                ArtistFirstName = p.Artist.FirstName,
-                ArtistSecondName = p.Artist.LastName,
-                MovementName = p.Artist.Movement.MovementName,
-                GenreName = p.Genre.GenreName
-            })
-            .FirstOrDefaultAsync();
+    public async Task<IActionResult> GetPaintingById([FromRoute]int id)
+    {   
+        var paintingDto = await galleryRepository.GetByIdAsync(id);
 
-        if (painting == null)
+        if (paintingDto == null)
             return NotFound(new { message = "Painting not found" });
 
-        return Ok(painting);
+        return Ok(paintingDto);
     }
 
     // GET: /fainoteam/getAllPainting/
     [HttpGet("getAllPainting")]
     public async Task<IActionResult> GetAllPaintings()
     {
-        var paintings = await _context.Paintings
-            .Select(p => new
-            {
-                p.PaintingId,
-                PaintingName = p.PaintingName,
-                ArtistFirstName = p.Artist.FirstName,
-                ArtistSecondName = p.Artist.LastName,
-                MovementName = p.Artist.Movement.MovementName,
-                GenreName = p.Genre.GenreName
-            })
-            .ToListAsync();
+        var paintingsDto = await galleryRepository.GetAllAsync();
 
-        return Ok(paintings);
+        return Ok(paintingsDto);
     }
 }
