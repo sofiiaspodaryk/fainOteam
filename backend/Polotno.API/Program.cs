@@ -6,6 +6,9 @@ using Polotno.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddDbContext<PolotnoContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
         MySqlServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
