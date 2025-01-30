@@ -1,4 +1,4 @@
-use polotno;
+use Polotno;
 
 show tables;
 
