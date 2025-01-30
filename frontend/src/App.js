@@ -1,14 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import ArtistsPage from "./pages/ArtistsPage";
-import PaintingsPage from "./pages/PaintingsPage";
-import StylesPage from "./pages/StylesPage";
-import GenresPage from "./pages/GenresPage";
-import CollectionsPage from "./pages/CollectionsPage";
-import ProfilePage from "./pages/ProfilePage";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './pages/home/HomePage'; // Правильний імпорт
+import ArtistsPage from './pages/artist/ArtistPage';
+import PaintingsPage from './pages/painting/PaintingPage';
+import StylesPage from './pages/style/StylePage';
+import GenresPage from './pages/genre/GenrePage';
+import CollectionsPage from './pages/profile/CollectionPage';
+import ProfilePage from './pages/profile/ProfilePage';
 
 function App() {
   return (
