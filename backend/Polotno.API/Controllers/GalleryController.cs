@@ -9,15 +9,15 @@ public class GalleryController : ControllerBase
 {
     private readonly IGalleryRepository galleryRepository;
 
-    public GalleryController( IGalleryRepository galleryRepository)
+    public GalleryController(IGalleryRepository galleryRepository)
     {
         this.galleryRepository = galleryRepository;
     }
 
     // GET: /fainoteam/getPaintingById/{id}
     [HttpGet("getPaintingById/{id}")]
-    public async Task<IActionResult> GetPaintingById([FromRoute]int id)
-    {   
+    public async Task<IActionResult> GetPaintingById([FromRoute] int id)
+    {
         var paintingDto = await galleryRepository.GetByIdAsync(id);
 
         if (paintingDto == null)

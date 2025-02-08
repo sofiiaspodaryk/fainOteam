@@ -21,7 +21,7 @@ public class UserController : ControllerBase
 
     // GET: /fainoteam/getUserById/{user_id}
     [HttpGet("getUserById/{user_id}")]
-    public async Task<IActionResult> GetUserById([FromRoute]int user_id)
+    public async Task<IActionResult> GetUserById([FromRoute] int user_id)
     {
         var user = await userRepository.GetByIdAsync(user_id);
 
@@ -37,7 +37,7 @@ public class UserController : ControllerBase
     // POST: /fainoteam/addUser/
     [HttpPost("addUser")]
     public async Task<IActionResult> AddUser([FromBody] AddRequestUserDto addRequestUserDto)
-    {   
+    {
         //Validation of User state
         if (!ModelState.IsValid)
         {
@@ -53,15 +53,15 @@ public class UserController : ControllerBase
         var user = mapper.Map<User>(addRequestUserDto);
 
         user = await userRepository.AddAsync(user);
-        
+
         // Map domain model into dto
         var userDto = mapper.Map<UserDto>(user);
-        return Ok(new{ message = "User added successfully", userDto });
+        return Ok(new { message = "User added successfully", userDto });
     }
 
     // DELETE: /fainoteam/deleteUserById/{user_id}
     [HttpDelete("deleteUserById/{user_id}")]
-    public async Task<IActionResult> DeleteUserById([FromRoute]int user_id)
+    public async Task<IActionResult> DeleteUserById([FromRoute] int user_id)
     {
         var user = await userRepository.DeleteAsync(user_id);
 
@@ -74,7 +74,7 @@ public class UserController : ControllerBase
     // PUT: /fainoteam/updateUserById/
     [HttpPut("updateUserById")]
     public async Task<IActionResult> UpdateUserById([FromBody] UpdateRequestUserDto updatedUser)
-    {   
+    {
         //Map UpdateRequestUserDto into user
         var user = mapper.Map<User>(updatedUser);
         user = await userRepository.UpdateAsync(user);

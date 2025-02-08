@@ -7,5 +7,5 @@ namespace Polotno.API.Repositories
     {
         Task<List<PaintingDto>> GetAllAsync();
         Task<PaintingDto?> GetByIdAsync(int id);
-    } 
+    }
 }

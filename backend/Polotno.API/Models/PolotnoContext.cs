@@ -6,7 +6,7 @@ using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 namespace Polotno.API.Models;
 
 public partial class PolotnoContext : DbContext
-{   
+{
     public PolotnoContext()
     {
     }
