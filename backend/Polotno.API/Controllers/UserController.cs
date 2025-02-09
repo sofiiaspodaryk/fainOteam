@@ -44,11 +44,6 @@ public class UserController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        if (string.IsNullOrEmpty(addRequestUserDto.Password))
-        {
-            return BadRequest(new { message = "Password is required" });
-        }
-
         //Map from addRequestUserDto to Domain model
         var user = mapper.Map<User>(addRequestUserDto);
 
