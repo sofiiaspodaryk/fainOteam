@@ -178,4 +178,89 @@ public class UserControllerTests
             .Which.Value.Should().BeEquivalentTo(expectedResponse);
     }
 
+    [Test]
+    public async Task UpdateUserById_ReturnsNotFound_WhenUserIsNull()
+    {
+        // Arrange
+        var updateRequestDto = new UpdateRequestUserDto
+        {
+            Username = "testuser",
+            Email = "example@gmail.com",
+            Password = "123456789"
+        };
+
+        var mappedUser = new User
+        {
+            Username = updateRequestDto.Username,
+            Email = updateRequestDto.Email,
+        };
+
+        var expectedMessage = new { message = "User not found" };
+
+        _mockMapper
+            .Setup(m => m.Map<User>(updateRequestDto))
+            .Returns(mappedUser);
+
+        _mockRepo
+            .Setup(repo => repo.UpdateAsync(mappedUser))
+            .ReturnsAsync((User?)null);
+
+        // Act
+        var result = await _controller.UpdateUserById(updateRequestDto);
+
+        // Assert
+        result
+            .Should().BeOfType<NotFoundObjectResult>()
+            .Which.Value.Should().BeEquivalentTo(expectedMessage);
+    }
+
+    [Test]
+    public async Task UpdateUserById_ReturnsOk_WhenUserIsUpdated()
+    {
+        // Arrange
+        var updateRequestDto = new UpdateRequestUserDto
+        {
+            Username = "testuser",
+            Email = "example@gmail.com",
+            Password = "123456789"
+        };
+
+        var updatedUser = new User
+        {
+            UserId = 1,
+            Username = updateRequestDto.Username,
+            Email = updateRequestDto.Email,
+            PasswordHash = updateRequestDto.Password,
+        };
+
+        var userDto = new UserDto
+        {
+            UserId = updatedUser.UserId,
+            Username = updatedUser.Username,
+            Email = updatedUser.Email,
+        };
+
+        var expectedResponse = new { message = "User updated successfully", userDto };
+
+        _mockMapper
+            .Setup(m => m.Map<User>(updateRequestDto))
+            .Returns(updatedUser);
+
+        _mockRepo
+            .Setup(repo => repo.UpdateAsync(updatedUser))
+            .ReturnsAsync(updatedUser);
+
+
+        _mockMapper
+            .Setup(m => m.Map<UserDto>(updatedUser))
+            .Returns(userDto);
+
+        // Act
+        var result = await _controller.UpdateUserById(updateRequestDto);
+
+        // Assert
+        result
+            .Should().BeOfType<OkObjectResult>()
+            .Which.Value.Should().BeEquivalentTo(expectedResponse);
+    }
 }
