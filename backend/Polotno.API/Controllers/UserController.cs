@@ -78,7 +78,7 @@ public class UserController : ControllerBase
             return NotFound(new { message = "User not found" });
 
         //Map domain model into UserDto
-        var userDto = mapper.Map<User>(user);
+        var userDto = mapper.Map<UserDto>(user);
         return Ok(new { message = "User updated successfully", userDto });
     }
 }
