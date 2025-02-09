@@ -137,4 +137,45 @@ public class UserControllerTests
             .Which.Value.Should().BeEquivalentTo(expectedMessage);
     }
 
+    [Test]
+    public async Task DeleteUserById_ReturnsNotFound_WhenUserDoesNotExist()
+    {
+        // Arrange
+        int invalidId = -1;
+        var expectedMessage = new { message = "User not found" };
+
+        _mockRepo
+            .Setup(repo => repo.DeleteAsync(invalidId))
+            .ReturnsAsync((User?)null);
+
+        // Act
+        var result = await _controller.DeleteUserById(invalidId);
+
+        // Assert
+        result
+            .Should().BeOfType<NotFoundObjectResult>()
+            .Which.Value.Should().BeEquivalentTo(expectedMessage);
+    }
+
+    [Test]
+    public async Task DeleteUserById_ReturnsOk_WhenUserIsDeleted()
+    {
+        // Arrange
+        int userId = 1;
+        var user = new User { UserId = userId, Username = "Tester" };
+        var expectedResponse = new { message = "User deleted successfully", user };
+
+        _mockRepo
+            .Setup(repo => repo.DeleteAsync(userId))
+            .ReturnsAsync(user);
+
+        // Act
+        var result = await _controller.DeleteUserById(userId);
+
+        // Assert
+        result
+            .Should().BeOfType<OkObjectResult>()
+            .Which.Value.Should().BeEquivalentTo(expectedResponse);
+    }
+
 }
