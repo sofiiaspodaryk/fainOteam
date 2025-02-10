@@ -57,13 +57,40 @@ namespace Polotno.API.Controllers
 
             return Ok(new { token });
         }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerDto)
+        {
+            // Check if user already exists
+            var existingUser = await userRepository.FindByEmailAsync(registerDto.Email);
+            if (existingUser != null)
+            {
+                return Conflict(new { message = "User with this email already exists" });
+            }
 
-        // Dummy password verification. Replace with your actual logic!
+            // Create a new user instance
+            var newUser = new User
+            {
+                Username = registerDto.Username,
+                Email = registerDto.Email,
+                PasswordHash = HashPassword(registerDto.Password),
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await userRepository.AddAsync(newUser);
+
+            // Optionally, return a JWT token right away (or simply a success message)
+            return Ok(new { message = "Registration successful" });
+        }
+
+        // Replace the dummy methods with implementations using BCrypt
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
         private bool VerifyPassword(string enteredPassword, string storedHash)
         {
-            // For demonstration, we assume storedHash is the plain password.
-            // In a real-world scenario, compare hashes using an appropriate hashing algorithm.
-            return enteredPassword == storedHash;
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHash);
         }
     }
 }

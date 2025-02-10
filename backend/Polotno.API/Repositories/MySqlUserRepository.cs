@@ -60,5 +60,10 @@ namespace Polotno.API.Repositories
             var user = await dbcontext.Users.FirstOrDefaultAsync(x => x.Username == username);
             return user;
         }
+        public async Task<User?> FindByEmailAsync(string email)
+        {
+            var user = await dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return user;
+        }
     }
 }
