@@ -8,5 +8,6 @@ namespace Polotno.API.Repositories
         Task<User> AddAsync(User user);
         Task<User?> UpdateAsync(User user);
         Task<User?> DeleteAsync(int id);
+        Task<User?> FindByUsernameAsync(string username);
     }
 }

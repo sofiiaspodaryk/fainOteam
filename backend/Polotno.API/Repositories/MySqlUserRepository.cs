@@ -54,5 +54,11 @@ namespace Polotno.API.Repositories
 
             return user;
         }
+
+        public async Task<User?> FindByUsernameAsync(string username)
+        {
+            var user = await dbcontext.Users.FirstOrDefaultAsync(x => x.Username == username);
+            return user;
+        }
     }
 }

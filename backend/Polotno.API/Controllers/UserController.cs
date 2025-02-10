@@ -3,6 +3,7 @@ using Polotno.API.Models;
 using Polotno.API.Repositories;
 using AutoMapper;
 using Polotno.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Polotno.API.Controllers;
 
@@ -20,6 +21,7 @@ public class UserController : ControllerBase
     }
 
     // GET: /fainoteam/getUserById/{user_id}
+    [Authorize]
     [HttpGet("getUserById/{user_id}")]
     public async Task<IActionResult> GetUserById([FromRoute] int user_id)
     {
