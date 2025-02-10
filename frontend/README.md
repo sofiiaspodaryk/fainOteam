@@ -13,9 +13,11 @@ npm -v
 cd frontend (в ній працюємо і запускаємо)
 
 npm install react-scripts --save
+
 npm install @mui/material @emotion/react @emotion/styled
 npm install formik formik-mui @mui/icons-material
 npm install yup --save
+npm install axios
 
 // в файлі .gitignore напишіть: "node_modules/" та ігноруйте цю папку 
 

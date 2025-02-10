@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/home/HomePage';
 import PaintingPage from './pages/painting/PaintingPage';
 import SignUpPage from './pages/SignUpPage';
-import LogInPage from './pages/LogInpage';
+import LogInPage from './pages/LogInPage';
 
 function Layout() {
   const location = useLocation();
