@@ -10,14 +10,16 @@ index.js – точка входу до додатка.
 node -v
 npm -v
 
-cd frontend
+cd frontend (в ній працюємо і запускаємо)
+
+npm install react-scripts --save
+npm install @mui/material @emotion/react @emotion/styled
+npm install formik formik-mui @mui/icons-material
+npm install yup --save
+
+// в файлі .gitignore напишіть: "node_modules/" та ігноруйте цю папку 
 
 npm install
 
-npm start - команда для запуску проекту в папці frontend
-
-якщо виникає проблема: 
-1) cd frontend
-2) npm install react-scripts --save
-3) в файлі .gitignore напишіть: "node_modules/" та ігноруйте цю папку 
-3) npm install
+3) запуск
+npm start
