@@ -1,0 +1,54 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #E4D6B4;
+    color: black;
+    border-top: 1px solid #444;
+  }
+  
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: 1;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 2px;
+  }
+  
+  .logo-text {
+    font-size: 36px; /* Збільште розмір шрифту для кращого вигляду */
+    font-family: 'Waterfall', cursive; /* Використовуємо Waterfall */
+    color: black;
+  }
+  
+  .phone {
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .social-icon {
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    opacity: 0.7;
+  }

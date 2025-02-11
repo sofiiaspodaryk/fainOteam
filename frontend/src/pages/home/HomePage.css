@@ -1,0 +1,139 @@
+/* HomePage.css */
+.home-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .home-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .home-page p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Стилі для "Картина дня" */
+  .painting-of-the-day {
+    margin: 40px 0;
+  }
+  
+  .painting-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .painting-details img {
+    max-width: 300px;
+    border-radius: 10px;
+  }
+  
+  .painting-info {
+    text-align: left;
+  }
+  
+  .painting-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .painting-info p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .more-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #AF3D1A; /* Синій фон */
+    color: white; /* Білий текст */
+    text-decoration: none;
+    border-radius: 10px; /* Закруглені кути */
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .more-link:hover {
+    background-color: #892F14;
+    text-decoration: none;
+  }
+  
+
+  
+  .more-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Стилі для каруселі */
+  .recommended-paintings {
+    margin: 40px 0;
+  }
+  
+  .carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .carousel-content {
+    display: flex;
+    overflow: hidden;
+    width: 80%;
+    gap: 10px;
+  }
+  
+  .carousel-item {
+    flex: 0 0 auto;
+    width: 200px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .carousel-item.active {
+    opacity: 1;
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .carousel-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .carousel-button:hover {
+    color: #007bff;
+  }
+  
+  /* Стилі для швидких посилань */
+  .quick-links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .quick-links ul li {
+    margin: 10px 0;
+  }
+  
+  .quick-links ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.1rem;
+  }
+  
+  .quick-links ul li a:hover {
+    text-decoration: underline;
+  }
