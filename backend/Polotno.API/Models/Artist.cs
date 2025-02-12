@@ -7,6 +7,8 @@ public partial class Artist
 {
     public int ArtistId { get; set; }
 
+    public string? PathToTheImage { get; set; }
+
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;

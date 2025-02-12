@@ -96,6 +96,9 @@ public partial class PolotnoContext : DbContext
             entity.HasIndex(e => e.MovementId, "movement_id");
 
             entity.Property(e => e.ArtistId).HasColumnName("artist_id");
+            entity.Property(e => e.PathToTheImage)
+                .HasMaxLength(255)   
+                .HasColumnName("path_to_the_image");
             entity.Property(e => e.Bio)
                 .HasColumnType("text")
                 .HasColumnName("bio");
@@ -182,6 +185,9 @@ public partial class PolotnoContext : DbContext
             entity.Property(e => e.PaintingId).HasColumnName("painting_id");
             entity.Property(e => e.ArtistId).HasColumnName("artist_id");
             entity.Property(e => e.GenreId).HasColumnName("genre_id");
+            entity.Property(e => e.PathToTheImage)
+                .HasMaxLength(255)   
+                .HasColumnName("path_to_the_image");
             entity.Property(e => e.PaintingDescription)
                 .HasColumnType("text")
                 .HasColumnName("painting_description");
@@ -258,6 +264,9 @@ public partial class PolotnoContext : DbContext
             entity.HasIndex(e => e.Email, "email").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.PathToTheImage)
+                .HasMaxLength(255)   
+                .HasColumnName("path_to_the_image");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
