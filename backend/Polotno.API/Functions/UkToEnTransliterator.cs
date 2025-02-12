@@ -13,7 +13,7 @@ public class UkToEnTransliterator
         {"щ", "shch"}, {"ь", ""}, {"ю", "yu"}, {"я", "ya"}, {" ", "_"}
     };
 
-    public string ToTranslit(string input)
+    public static string ToTranslit(string input)
     {
         input = input.ToLower();
         var result = new StringBuilder();
