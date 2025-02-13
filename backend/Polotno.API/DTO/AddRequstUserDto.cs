@@ -4,7 +4,7 @@ namespace Polotno.API.DTO
 {
     public class AddRequestUserDto
     {
-        [Required(ErrorMessage = "Username is required")]
+        [Required(ErrorMessage = "Username is required")] 
         public string Username { get; set; } = null!;
 
         [Required(ErrorMessage = "Email is required")]
