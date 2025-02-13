@@ -5,7 +5,7 @@ namespace Polotno.API.Functions;
 class UrlByNameGenerator
 {
     private const String BASE_URL = "https://storage.googleapis.com/polotno-bucket-1/";
-    public static string GenerateUrlByName(string name, string? storing_directory=null)
+    public static string GenerateUrlByName(string name, string? storing_directory = null)
     {
         var result = new StringBuilder();
 
@@ -16,7 +16,7 @@ class UrlByNameGenerator
 
         var transliteratedName = UkToEnTransliterator.ToTranslit(name);
         result.Append(transliteratedName + ".jpeg");
-        
+
         return result.ToString();
     }
 }

@@ -19,7 +19,7 @@ public class UkToEnTransliterator
         var result = new StringBuilder();
 
         foreach (var ch in input)
-        {   
+        {
             var charStr = ch.ToString();
             if (TransliterationMap.ContainsKey(charStr))
             {

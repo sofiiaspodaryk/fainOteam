@@ -21,11 +21,12 @@ builder.Services.AddScoped<IGalleryRepository, MySqlGalleryRepository>();
 builder.Services.AddScoped<IUserRepository, MySqlUserRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
-builder.Services.AddAuthentication(x => {
+builder.Services.AddAuthentication(x =>
+{
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x => 
+}).AddJwtBearer(x =>
 {
     x.TokenValidationParameters = new TokenValidationParameters
     {
