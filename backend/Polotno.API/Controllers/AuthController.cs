@@ -58,13 +58,20 @@ namespace Polotno.API.Controllers
             return Ok(new { token });
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerDto)
+        public async Task<IActionResult> Register([FromBody] AddRequestUserDto registerDto)
         {
-            // Check if user already exists
-            var existingUser = await userRepository.FindByEmailAsync(registerDto.Email);
-            if (existingUser != null)
+            // Check if user already exists by email
+            var existingUserByEmail = await userRepository.FindByEmailAsync(registerDto.Email);
+            if (existingUserByEmail != null)
             {
                 return Conflict(new { message = "User with this email already exists" });
+            }
+
+            // Check by username as well
+            var existingUserByUsername = await userRepository.FindByUsernameAsync(registerDto.Username);
+            if (existingUserByUsername != null)
+            {
+                return Conflict(new { message = "User with this username already exists" });
             }
 
             // Create a new user instance
@@ -81,6 +88,7 @@ namespace Polotno.API.Controllers
             // Optionally, return a JWT token right away (or simply a success message)
             return Ok(new { message = "Registration successful" });
         }
+        
 
         // Replace the dummy methods with implementations using BCrypt
         private string HashPassword(string password)
