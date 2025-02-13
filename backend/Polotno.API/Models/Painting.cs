@@ -9,6 +9,8 @@ public partial class Painting
 
     public string PaintingName { get; set; } = null!;
 
+    public string? PathToTheImage { get; set; }
+
     public int ArtistId { get; set; }
 
     public int? StyleId { get; set; }
