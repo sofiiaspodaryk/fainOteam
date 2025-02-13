@@ -88,7 +88,7 @@ namespace Polotno.API.Controllers
             // Optionally, return a JWT token right away (or simply a success message)
             return Ok(new { message = "Registration successful" });
         }
-        
+
 
         // Replace the dummy methods with implementations using BCrypt
         private string HashPassword(string password)

@@ -10,6 +10,6 @@ namespace Polotno.API.Repositories
         Task<User?> DeleteAsync(int id);
         Task<User?> FindByUsernameAsync(string username);
         Task<User?> FindByEmailAsync(string email);
-        
+
     }
 }
