@@ -28,9 +28,15 @@ public class GalleryController : ControllerBase
 
     // GET: /fainoteam/getAllPainting/
     [HttpGet("getAllPainting")]
-    public async Task<IActionResult> GetAllPaintings()
+    public async Task<IActionResult> GetAllPaintings(
+                                    [FromBody] int? year_from,
+                                    [FromBody] int? year_to,
+                                    [FromBody] string? painting_name,
+                                    [FromBody] string? movement_name,
+                                    [FromBody] string? genre_name)
     {
-        var paintingsDto = await galleryRepository.GetAllAsync();
+        var paintingsDto = await galleryRepository
+                                .GetAllAsync(year_from, year_to, painting_name, movement_name, genre_name);
 
         return Ok(paintingsDto);
     }
