@@ -15,11 +15,11 @@ namespace Polotno.API.Repositories
         }
 
         public async Task<List<PaintingDto>> GetAllAsync(
-                                            int? year_from = null,
-                                            int? year_to = null,
-                                            string? painting_name = null,
-                                            string? movement_name = null,
-                                            string? genre_name = null)
+                                            int? year_from,
+                                            int? year_to,
+                                            string? painting_name,
+                                            string? movement_name,
+                                            string? genre_name)
         {
             var unfilteredPaintings = dbContext.Paintings
                                     .Include(p => p.Artist)
@@ -38,7 +38,7 @@ namespace Polotno.API.Repositories
 
             if (!movement_name.IsNullOrEmpty()) unfilteredPaintings = unfilteredPaintings
                                                                     .Where(p => p.Artist.Movement!.MovementName
-                                                                    .Equals(movement_name!));
+                                                                    .Contains(movement_name!));
 
             if (!genre_name.IsNullOrEmpty()) unfilteredPaintings = unfilteredPaintings
                                                                 .Where(p => p.Genre!.GenreName.Contains(genre_name!));

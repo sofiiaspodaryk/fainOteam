@@ -149,7 +149,7 @@ namespace Polotno.Tests.Repositories
         public async Task GetAllAsync_ReturnsAllPaintings_WhenNoFiltersProvided()
         {
             // Act
-            var result = await _repo.GetAllAsync();
+            var result = await _repo.GetAllAsync(null, null, null, null, null);
 
             // Assert
             result.Should().HaveCount(3);
@@ -159,7 +159,7 @@ namespace Polotno.Tests.Repositories
         public async Task GetAllAsync_FiltersByYearRange()
         {
             // Act
-            var result = await _repo.GetAllAsync(1800, 1900);
+            var result = await _repo.GetAllAsync(1800, 1900, null, null, null);
 
             // Assert
             result
@@ -171,7 +171,7 @@ namespace Polotno.Tests.Repositories
         public async Task GetAllAsync_FiltersByPaintingName()
         {
             // Act
-            var result = await _repo.GetAllAsync(null, null, "Портрет");
+            var result = await _repo.GetAllAsync(null, null, "Портрет", null, null);
 
             // Assert
             result
@@ -183,7 +183,7 @@ namespace Polotno.Tests.Repositories
         public async Task GetAllAsync_FiltersByMovementName()
         {
             // Act
-            var result = await _repo.GetAllAsync(null, null, null, "Український реалізм");
+            var result = await _repo.GetAllAsync(null, null, null, "Український реалізм", null);
 
             // Assert
             result
@@ -207,7 +207,7 @@ namespace Polotno.Tests.Repositories
         public async Task GetAllAsync_FiltersByMultipleParameters()
         {
             // Act
-            var result = await _repo.GetAllAsync(1800, 1900, "Портрет");
+            var result = await _repo.GetAllAsync(1800, 1900, "Портрет", null, null);
 
             // Assert
             result
