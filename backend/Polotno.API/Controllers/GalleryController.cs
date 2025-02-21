@@ -14,8 +14,8 @@ public class GalleryController : ControllerBase
         this.galleryRepository = galleryRepository;
     }
 
-    // GET: /fainoteam/getPaintingById/{id}
-    [HttpGet("getPaintingById/{id}")]
+    // GET: /fainoteam/paintings/{id}
+    [HttpGet("paintings/{id}")]
     public async Task<IActionResult> GetPaintingById([FromRoute] int id)
     {
         var paintingDto = await galleryRepository.GetByIdAsync(id);
@@ -26,8 +26,8 @@ public class GalleryController : ControllerBase
         return Ok(paintingDto);
     }
 
-    // GET: /fainoteam/getAllPainting/
-    [HttpGet("getAllPainting")]
+    // GET: /fainoteam/paintings/
+    [HttpGet("paintings")]
     public async Task<IActionResult> GetAllPaintings()
     {
         var paintingsDto = await galleryRepository.GetAllAsync();

@@ -20,12 +20,12 @@ public class UserController : ControllerBase
         this.mapper = mapper;
     }
 
-    // GET: /fainoteam/getUserById/{user_id}
+    // GET: /fainoteam/users/{id}
     [Authorize]
-    [HttpGet("getUserById/{user_id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int user_id)
+    [HttpGet("users/{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        var user = await userRepository.GetByIdAsync(user_id);
+        var user = await userRepository.GetByIdAsync(id);
 
         if (user == null)
             return NotFound(new { message = "User not found." });
@@ -35,8 +35,8 @@ public class UserController : ControllerBase
         return Ok(userDto);
     }
 
-    // POST: /fainoteam/addUser/
-    [HttpPost("addUser")]
+    // POST: /fainoteam/users/
+    [HttpPost("users")]
     public async Task<IActionResult> AddUser([FromBody] UserRequestDto addRequestUserDto)
     {
         //Validation of User state
@@ -53,11 +53,11 @@ public class UserController : ControllerBase
         return Ok(new { message = "User added successfully", userDto });
     }
 
-    // DELETE: /fainoteam/deleteUserById/{user_id}
-    [HttpDelete("deleteUserById/{user_id}")]
-    public async Task<IActionResult> DeleteUserById([FromRoute] int user_id)
+    // DELETE: /fainoteam/users/{id}
+    [HttpDelete("users/{id}")]
+    public async Task<IActionResult> DeleteUserById([FromRoute] int id)
     {
-        var user = await userRepository.DeleteAsync(user_id);
+        var user = await userRepository.DeleteAsync(id);
 
         if (user == null)
             return NotFound(new { message = "User not found" });
@@ -65,8 +65,8 @@ public class UserController : ControllerBase
         return Ok(new { message = "User deleted successfully", user });
     }
 
-    // PUT: /fainoteam/updateUserById/
-    [HttpPut("updateUserById")]
+    // PUT: /fainoteam/users/{id}
+    [HttpPut("users/{id}")]
     public async Task<IActionResult> UpdateUserById([FromRoute] int id, [FromBody] UserRequestDto updatedUser)
     {
         var existingUser = await userRepository.GetByIdAsync(id);
