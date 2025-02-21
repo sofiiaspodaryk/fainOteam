@@ -20,33 +20,30 @@ public class UserController : ControllerBase
         this.mapper = mapper;
     }
 
-    // GET: /fainoteam/getUserById/{user_id}
+    // GET: /fainoteam/users/{id}
     [Authorize]
-    [HttpGet("getUserById/{user_id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int user_id)
+    [HttpGet("users/{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        var user = await userRepository.GetByIdAsync(user_id);
+        var user = await userRepository.GetByIdAsync(id);
 
         if (user == null)
-        {
             return NotFound(new { message = "User not found." });
-        }
+
         //Map domain model into UserDto
         var userDto = mapper.Map<UserDto>(user);
         return Ok(userDto);
     }
 
-    // POST: /fainoteam/addUser/
-    [HttpPost("addUser")]
-    public async Task<IActionResult> AddUser([FromBody] AddRequestUserDto addRequestUserDto)
+    // POST: /fainoteam/users/
+    [HttpPost("users")]
+    public async Task<IActionResult> AddUser([FromBody] UserRequestDto addRequestUserDto)
     {
         //Validation of User state
         if (!ModelState.IsValid)
-        {
             return BadRequest(ModelState);
-        }
 
-        //Map from addRequestUserDto to Domain model
+        //Map from UserRequestDto to Domain model
         var user = mapper.Map<User>(addRequestUserDto);
 
         user = await userRepository.AddAsync(user);
@@ -56,11 +53,11 @@ public class UserController : ControllerBase
         return Ok(new { message = "User added successfully", userDto });
     }
 
-    // DELETE: /fainoteam/deleteUserById/{user_id}
-    [HttpDelete("deleteUserById/{user_id}")]
-    public async Task<IActionResult> DeleteUserById([FromRoute] int user_id)
+    // DELETE: /fainoteam/users/{id}
+    [HttpDelete("users/{id}")]
+    public async Task<IActionResult> DeleteUserById([FromRoute] int id)
     {
-        var user = await userRepository.DeleteAsync(user_id);
+        var user = await userRepository.DeleteAsync(id);
 
         if (user == null)
             return NotFound(new { message = "User not found" });
@@ -68,19 +65,20 @@ public class UserController : ControllerBase
         return Ok(new { message = "User deleted successfully", user });
     }
 
-    // PUT: /fainoteam/updateUserById/
-    [HttpPut("updateUserById")]
-    public async Task<IActionResult> UpdateUserById([FromBody] UpdateRequestUserDto updatedUser)
+    // PUT: /fainoteam/users/{id}
+    [HttpPut("users/{id}")]
+    public async Task<IActionResult> UpdateUserById([FromRoute] int id, [FromBody] UserRequestDto updatedUser)
     {
-        //Map UpdateRequestUserDto into user
-        var user = mapper.Map<User>(updatedUser);
-        user = await userRepository.UpdateAsync(user);
-
-        if (user == null)
+        var existingUser = await userRepository.GetByIdAsync(id);
+        if (existingUser == null)
             return NotFound(new { message = "User not found" });
 
-        //Map domain model into UserDto
-        var userDto = mapper.Map<UserDto>(user);
+        //Update existing model
+        mapper.Map(updatedUser, existingUser);
+        var updatedEntity = await userRepository.UpdateAsync(existingUser);
+
+        // Map domain model into dto
+        var userDto = mapper.Map<UserDto>(updatedEntity);
         return Ok(new { message = "User updated successfully", userDto });
     }
 }

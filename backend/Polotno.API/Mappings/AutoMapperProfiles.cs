@@ -9,13 +9,13 @@ namespace Polotno.API.Mappings
         public AutoMapperProfiles()
         {
             CreateMap<PaintingDto, Painting>().ReverseMap();
+
             CreateMap<UserDto, User>().ReverseMap();
-            CreateMap<AddRequestUserDto, User>()
+
+            CreateMap<UserRequestDto, User>()
                 .ForMember(x => x.PasswordHash, opt => opt.MapFrom(x => x.Password))
                 .ReverseMap();
-            CreateMap<UpdateRequestUserDto, User>()
-                .ForMember(x => x.PasswordHash, opt => opt.MapFrom(x => x.Password))
-                .ReverseMap();
+
             CreateMap<LoginRequestDto, User>()
                 .ForMember(x => x.PasswordHash, opt => opt.MapFrom(x => x.Password))
                 .ReverseMap();
