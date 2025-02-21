@@ -28,9 +28,8 @@ public class UserController : ControllerBase
         var user = await userRepository.GetByIdAsync(user_id);
 
         if (user == null)
-        {
             return NotFound(new { message = "User not found." });
-        }
+
         //Map domain model into UserDto
         var userDto = mapper.Map<UserDto>(user);
         return Ok(userDto);
@@ -42,9 +41,7 @@ public class UserController : ControllerBase
     {
         //Validation of User state
         if (!ModelState.IsValid)
-        {
             return BadRequest(ModelState);
-        }
 
         //Map from addRequestUserDto to Domain model
         var user = mapper.Map<User>(addRequestUserDto);

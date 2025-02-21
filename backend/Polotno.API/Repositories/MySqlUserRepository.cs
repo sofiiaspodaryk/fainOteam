@@ -23,9 +23,7 @@ namespace Polotno.API.Repositories
             var existingUser = await dbcontext.Users.FirstOrDefaultAsync(x => x.UserId == id);
 
             if (existingUser == null)
-            {
                 return null;
-            }
 
             dbcontext.Users.Remove(existingUser);
             await dbcontext.SaveChangesAsync();
@@ -43,9 +41,7 @@ namespace Polotno.API.Repositories
             var existingUser = await dbcontext.Users.FirstOrDefaultAsync(x => x.UserId == user.UserId);
 
             if (existingUser == null)
-            {
                 return null;
-            }
 
             existingUser.Username = user.Username;
             existingUser.PasswordHash = user.PasswordHash;
