@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Polotno.API.DTO
 {
-    public class AddRequestUserDto
+    public class UserRequestDto
     {
         [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; } = null!;

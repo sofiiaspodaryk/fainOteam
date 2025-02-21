@@ -37,13 +37,13 @@ public class UserController : ControllerBase
 
     // POST: /fainoteam/addUser/
     [HttpPost("addUser")]
-    public async Task<IActionResult> AddUser([FromBody] AddRequestUserDto addRequestUserDto)
+    public async Task<IActionResult> AddUser([FromBody] UserRequestDto addRequestUserDto)
     {
         //Validation of User state
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        //Map from addRequestUserDto to Domain model
+        //Map from UserRequestDto to Domain model
         var user = mapper.Map<User>(addRequestUserDto);
 
         user = await userRepository.AddAsync(user);
@@ -67,17 +67,18 @@ public class UserController : ControllerBase
 
     // PUT: /fainoteam/updateUserById/
     [HttpPut("updateUserById")]
-    public async Task<IActionResult> UpdateUserById([FromBody] UpdateRequestUserDto updatedUser)
+    public async Task<IActionResult> UpdateUserById([FromRoute] int id, [FromBody] UserRequestDto updatedUser)
     {
-        //Map UpdateRequestUserDto into user
-        var user = mapper.Map<User>(updatedUser);
-        user = await userRepository.UpdateAsync(user);
-
-        if (user == null)
+        var existingUser = await userRepository.GetByIdAsync(id);
+        if (existingUser == null)
             return NotFound(new { message = "User not found" });
 
-        //Map domain model into UserDto
-        var userDto = mapper.Map<UserDto>(user);
+        //Update existing model
+        mapper.Map(updatedUser, existingUser);
+        var updatedEntity = await userRepository.UpdateAsync(existingUser);
+
+        // Map domain model into dto
+        var userDto = mapper.Map<UserDto>(updatedEntity);
         return Ok(new { message = "User updated successfully", userDto });
     }
 }
