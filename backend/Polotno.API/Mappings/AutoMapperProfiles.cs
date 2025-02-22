@@ -19,6 +19,14 @@ namespace Polotno.API.Mappings
             CreateMap<LoginRequestDto, User>()
                 .ForMember(x => x.PasswordHash, opt => opt.MapFrom(x => x.Password))
                 .ReverseMap();
+
+            CreateMap<Test, TestSummaryDto>();
+
+            CreateMap<Test, TestDto>();
+
+            CreateMap<Question, QuestionDto>();
+
+            CreateMap<Answer, AnswerDto>();
         }
     }
 }
