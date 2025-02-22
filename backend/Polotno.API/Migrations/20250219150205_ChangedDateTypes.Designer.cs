@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Polotno.API.Models;
 
@@ -11,9 +12,11 @@ using Polotno.API.Models;
 namespace Polotno.API.Migrations
 {
     [DbContext(typeof(PolotnoContext))]
-    partial class PolotnoContextModelSnapshot : ModelSnapshot
+    [Migration("20250219150205_ChangedDateTypes")]
+    partial class ChangedDateTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

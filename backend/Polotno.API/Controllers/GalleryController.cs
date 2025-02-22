@@ -26,8 +26,8 @@ public class GalleryController : ControllerBase
         return Ok(paintingDto);
     }
 
-    // GET: /fainoteam/getAllPainting/
-    [HttpGet("getAllPainting")]
+    // GET: /fainoteam/getAllPaintings/
+    [HttpGet("getAllPaintings")]
     public async Task<IActionResult> GetAllPaintings(
                                     [FromBody] int? year_from = null,
                                     [FromBody] int? year_to = null,
