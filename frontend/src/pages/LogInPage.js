@@ -3,24 +3,24 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, TextField, Container, Typography } from "@mui/material";
 import * as Yup from "yup";
 import axios from "axios";  
+
 const LogIn = () => {
     const validationSchema = Yup.object({
-        email: Yup.string().email("Invalid format").required("Required field"),
+        username: Yup.string().required("Required field"),
         password: Yup.string().min(6, "Minimum 6 characters").required("Required field"),
     });
 
     const handleSubmit = async (values, { setSubmitting, setErrors }) => {
         try {
-            const response = await axios.post("http://api/login", {
-                email: values.email,
+            const response = await axios.post("http://localhost:5238/fainoteam/login", {
+                username: values.username,
                 password: values.password,
             });
 
             console.log("Login successful:", response.data);
-//
         } catch (error) {
             console.error("There was an error logging in:", error);
-            setErrors({ server: "Invalid email or password, please try again." });
+            setErrors({ server: "Invalid username or password, please try again." });
         } finally {
             setSubmitting(false);  
         }
@@ -32,7 +32,7 @@ const LogIn = () => {
                 Log In
             </Typography>
             <Formik
-                initialValues={{ email: "", password: "" }}
+                initialValues={{ username: "", password: "" }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
@@ -40,13 +40,13 @@ const LogIn = () => {
                     <Form>
                         <Field
                             as={TextField}
-                            name="email"
-                            label="Email"
+                            name="username"
+                            label="Username"
                             fullWidth
                             margin="normal"
                             style={{ backgroundColor: "#E4D6B4", borderRadius: "4px" }}
                         />
-                        <ErrorMessage name="email" component="div" style={{ color: "#892F14" }} />
+                        <ErrorMessage name="username" component="div" style={{ color: "#892F14" }} />
                         
                         <Field
                             as={TextField}
