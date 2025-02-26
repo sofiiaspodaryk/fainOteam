@@ -42,12 +42,25 @@ builder.Services.AddAuthentication(x => {
 
 builder.Services.AddAuthorization();
 
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // Allow your React app's origin
+                   .AllowAnyMethod() // Allow HTTP methods like GET, POST, PUT, DELETE
+                   .AllowAnyHeader(); // Allow any headers
+        });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowReactApp"); // <--- ADD THIS LINE
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();

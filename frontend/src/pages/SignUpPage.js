@@ -14,7 +14,7 @@ const SignUp = () => {
 
     const handleSubmit = async (values, { setSubmitting, setErrors }) => {
         try {
-            const response = await axios.post("http://api/signup", {
+            const response = await axios.post("http://localhost:5238/fainoteam/register", {
                 username: values.username,
                 email: values.email,
                 password: values.password,
